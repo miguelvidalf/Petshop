@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block stylesheet %}
+<link href="{% static 'core/css/forms.css'%}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center !important;">
+            PetShop
+        </h1>
+        <br><br>
+        <div class="container-fluid">
+            <div class="row text-center">
+                <div class="mx-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 ficha_auto_recuadro">
+                    <img src="/media/{{ producto.imagen }}" class="ficha_auto_imagen" alt="">
+                </div>
+                <div class="mx-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 ficha_datos_recuadro">
+                    <h1>
+                        Nombre: {{ producto.nombre }}<br><br>
+                    </h1>
+                    <h2>
+                        Precio: {{ producto.precio }}<br><br>
+                    </h2>
+                    <h3>
+                        Descripcion: {{ producto.descripcion }}
+                    </h2>
+                    <div style="margin-top: 30px;">
+                        <a class="btn   btn-success btn-primary" href="#">Comprar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 20px; text-align: center;">
+        <a href="{% url 'vehiculo_tienda' %}" class="btn btn-success btn-sm">Ir a la tienda</a>&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'home' %}" class="btn btn-success btn-sm">Ir a la página de inicio</a>
+    </div>
+    {% endblock content %}
+</body>
+</html>

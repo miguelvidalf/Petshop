@@ -1,0 +1,39 @@
+#tienda_ficha:link, #anav:visited {
+    color: rgb(59, 56, 56);
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .tienda_auto_recuadro {
+    width: 350px;
+    text-align: center;
+    padding: 5px;
+    margin: 2px;
+    border: 10px outset #155041;
+}
+
+.tienda_auto_imagen {
+    width: 250px;
+    margin:auto;
+}
+
+.tienda_auto_recuadro_interior {
+    background-color: rgb(183, 187, 186);
+    width: 305px;
+    height: 255px;
+    /* border:1px solid blue; */
+    margin:auto;
+}
+
+#btn_producto {
+    width: 100%;
+    background-color: #155041;
+    color: antiquewhite;
+}
+
+.tienda_link_home {
+    text-align: center;
+    margin-top: 20px;
+}
