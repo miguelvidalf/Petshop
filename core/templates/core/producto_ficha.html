@@ -27,14 +27,14 @@
                         Descripcion: {{ producto.descripcion }}
                     </h2>
                     <div style="margin-top: 30px;">
-                        <a class="btn   btn-success btn-primary" href="#">Comprar</a>
+                        <a href="{% url 'carritoCompra' %}" class="btn   btn-success btn-primary" href="#">Comprar</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div style="margin-top: 20px; text-align: center;">
-        <a href="{% url 'vehiculo_tienda' %}" class="btn btn-success btn-sm">Ir a la tienda</a>&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'indexPetshop' %}" class="btn btn-success btn-sm">Ir a la tienda</a>&nbsp;&nbsp;&nbsp;
         <a href="{% url 'home' %}" class="btn btn-success btn-sm">Ir a la página de inicio</a>
     </div>
     {% endblock content %}
