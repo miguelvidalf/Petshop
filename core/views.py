@@ -14,6 +14,9 @@ def nosotros(request):
 def ingreso(request):
     return render(request, "core/ingreso.html")
 
+def carritoCompra(request):
+    return render(request, "core/carritoCompra.html")
+
 def misDatos(request):
     return render(request, "core/misDatos.html")
 def misCompras(request):
