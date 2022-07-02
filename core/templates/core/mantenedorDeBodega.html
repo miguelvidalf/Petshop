@@ -1,32 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petshop</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-<!---------Navbar------->
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Petshop</a>
-      </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="indexAnonymousUser.html">Inicio</a></li>
-        <li><a href="nosotros.html">Nosotros</a></li>
-        <li><a href="misDatos.html">Mis Datos</a></li>
-        <li class="active"><a href="menuAdministrador.html">Administrar</a></li>
-        <li><a href="indexAnonymousUser.html">Cerrar Sesión</a></li>
-      </ul>
-    </div>
-  </nav>
-<!---------End Navbar---------->
+{% extends 'core/base.html' %}
+{% load static %}
+{% block stylesheet %}
+<link href="{% static 'core/css/style.css'%}" rel="stylesheet">
+{% endblock %}
+{% block content %}
 <div class="container-fluid">
     <h1>Mantenedor de Bodega</h1>
 </div>
@@ -59,7 +36,7 @@
                     </select>
         </div>
             <div class="form-group">
-                <label for="cantidad">Cantidad</label>
+                <label for="cantidad">Estado</label>
                 <input class="form-control" type="text" name="nombre" id="cantidad" placeholder="">
             </div>
             <div class="row borde-bootstrap-row">
@@ -175,5 +152,4 @@
         </table>
 </div>
 
-</body>
-</html>
+{% endblock content %}

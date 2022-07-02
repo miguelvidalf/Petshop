@@ -20,7 +20,7 @@ h1 {
 }
 
 .navbar{
-    background-color: #335237;
+    background-color: #070707;
     margin:0%;
     padding: 0%;
     
@@ -31,8 +31,8 @@ h1 {
 }
 
 #anav:link, #anav:visited {
-    background-color: #6e736f;
-    color: white;
+    background-color: #edf8ed;
+    color: rgb(15, 13, 13);
     padding: 15px 25px;
     text-align: center;
     text-decoration: none;
@@ -40,6 +40,6 @@ h1 {
   }
   
 #anav:hover, #anav:active {
-    background-color: rgb(113, 105, 105);
+    background-color: rgb(135, 200, 149);
   }
 

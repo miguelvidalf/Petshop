@@ -6,7 +6,8 @@ from .forms import VehiculoForm, ProductoForm
 # Create your views here.
 
 def home(request):
-    return render(request, "core/home.html")
+    data = {"list": Producto.objects.all().order_by('idProducto')}
+    return render(request, "core/home.html", data)
 
 def nosotros(request):
     return render(request, "core/nosotros.html")
@@ -28,6 +29,21 @@ def indexPetshop(request):
 
 def registro(request):
     return render(request, "core/registro.html")
+
+def menuAdministrador(request):
+    return render(request, "core/menuAdministrador.html")
+
+def historialDeVentas(request):
+    return render(request, "core/historialDeVentas.html")
+
+def detalleDeFacturas(request):
+    return render(request, "core/detalleDeFacturas.html")
+
+def mantenedorDeBodega(request):
+    return render(request, "core/mantenedorDeBodega.html")
+
+def mantenedorUsuario(request):
+    return render(request, "core/mantenedorUsuario.html")
 
 def vehiculo_tienda(request):
     data = {"list": Vehiculo.objects.all().order_by('patente')}

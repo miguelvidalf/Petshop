@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import home, poblar_bd, poblar_bd_producto, vehiculo, vehiculo_tienda, vehiculo_ficha, producto, producto_ficha, carritoCompra
-from .views import nosotros,indexPetshop, registro, ingreso, misDatos, misCompras
-
+from .views import nosotros,indexPetshop, registro, ingreso, misDatos, misCompras, menuAdministrador, historialDeVentas, detalleDeFacturas
+from .views import mantenedorDeBodega, mantenedorUsuario
 urlpatterns = [
     path('', home, name="home"),
     path('poblar_bd', poblar_bd, name="poblar_bd"),
@@ -18,4 +18,9 @@ urlpatterns = [
     path('misDatos/', misDatos, name="misDatos"),
     path('misCompras/', misCompras, name="misCompras"),
     path('carritoCompra/', carritoCompra, name="carritoCompra"),
+    path('menuAdministrador/', menuAdministrador, name="menuAdministrador"),
+    path('historialDeVentas/', historialDeVentas, name="historialDeVentas"),
+    path('detalleDeFacturas/', detalleDeFacturas, name="detalleDeFacturas"),
+    path('mantenedorDeBodega/', mantenedorDeBodega, name="mantenedorDeBodega"),
+    path('mantenedorUsuario/', mantenedorUsuario, name="mantenedorUsuario"),
 ]
