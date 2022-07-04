@@ -18,6 +18,9 @@ def nosotros(request):
 def carritoCompra(request):
     return render(request, "core/carritoCompra.html")
 
+def api_ropa(request):
+    return render(request, "core/api_ropa.html")
+
 def misDatos(request):
     return render(request, "core/misDatos.html")
 def misCompras(request):

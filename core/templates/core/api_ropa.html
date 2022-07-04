@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link href="{% static 'core/css/style.css'%}" rel="stylesheet">
+{% endblock %}
+    
+ 
+
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+    .ropa {
+        width: 100px;
+    }
+</style>
+</head>
+<body>
+<h1>Ropita</h1>
+<div align="center"> 
+    <button  id="btnMostrarRopa">Ver ropita</button>
+
+</div>
+
+<br><br>
+<div>
+    <table id="tblCategorias" border="1px">
+    </table>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#btnMostrarRopa').click(function(){
+            $.get("http://fakestoreapi.com/products",
+                function(data) {
+                    debugger
+                    $.each(data, 
+                        function(i, item) {
+                            var td1 = `<td>${item.title}</td>`;
+                            var td2 = `<td><img class="ropa" src="${item.image}"></td>`;
+                            var tr = `<tr>${td1}${td2}</tr>`;
+                            $('#tblCategorias').append(tr);
+                        });
+                });
+        });
+    });
+
+</script>
+</body>
+</html>
+{% endblock content %}
