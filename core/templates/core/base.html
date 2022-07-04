@@ -20,6 +20,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item"><a id="anav" class="nav-link" href= "{% url 'nosotros' %}" >Nosotros</a></li>
@@ -27,8 +28,11 @@
             <li class="nav-item active"><a id="anav" class="nav-link" href="{% url 'ingreso' %}">Ingresar</a></li>
             <li class="nav-item active"><a id="anav" class="nav-link" href="{% url 'misDatos' %}">Mis Datos</a></li>
             <li class="nav-item active"><a id="anav" class="nav-link" href="{% url 'misCompras' %}">Mis Compras</a></li>
-            <li class="nav-item active"><a id="anav" class="nav-link" href="{% url 'carritoCompra' %}">Carrito de Compras</a></li>
+            <li class="nav-item active"><a id="anav" class="nav-link" href="{% url 'carritoCompra' %}">Carrito de Compras</a></li>           
+            {% if user.is_authenticated %}
+            {% if user.is_superuser %}               
             <li class="nav-item active"><a id="anav" class="nav-link" href="{% url 'menuAdministrador' %}">Administrador</a></li>
+                {% endif %}
             <li class="nav-item"><a id="anav" class="nav-link" href="{% url 'indexPetshop' %}">Cerrar sesión</a></li>
     </nav>
     {% endblock %}
