@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import home, poblar_bd, poblar_bd_producto, vehiculo, vehiculo_tienda, vehiculo_ficha, producto, producto_ficha, carritoCompra
 from .views import nosotros,indexPetshop, registro, ingreso, misDatos, misCompras, menuAdministrador, historialDeVentas, detalleDeFacturas
-from .views import mantenedorDeBodega, mantenedorUsuario
+from .views import mantenedorDeBodega, mantenedorUsuario, cerrar_sesion
 urlpatterns = [
     path('', home, name="home"),
     path('poblar_bd', poblar_bd, name="poblar_bd"),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('detalleDeFacturas/', detalleDeFacturas, name="detalleDeFacturas"),
     path('mantenedorDeBodega/', mantenedorDeBodega, name="mantenedorDeBodega"),
     path('mantenedorUsuario/', mantenedorUsuario, name="mantenedorUsuario"),
+    path('cerrar_sesion/', cerrar_sesion, name="cerrar_sesion"),
 ]

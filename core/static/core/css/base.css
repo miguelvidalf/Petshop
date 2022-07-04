@@ -40,6 +40,53 @@ h1 {
   }
   
 #anav:hover, #anav:active {
-    background-color: rgb(135, 200, 149);
+    background-color: rgb(255, 255, 255);
+    color: rgb(15, 13, 13);
   }
 
+.nav:link, .nav:visited {
+    background-color: #edf8ed;
+    color: rgb(15, 13, 13);
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+
+}
+
+.nav-item:hover {
+    background-color: #edf8ed;
+    color: rgb(15, 13, 13);
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.nav-item:active {
+    background-color: #edf8ed;
+    color: rgb(15, 13, 13);
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+
+}
+
+.nav-item:link {
+    background-color: #edf8ed;
+    color: rgb(15, 13, 13);
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.nav-item:visited {
+    background-color: #edf8ed;
+    color: rgb(15, 13, 13);
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}

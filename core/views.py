@@ -1,7 +1,10 @@
 
 from django.shortcuts import redirect, render
-from .models import Producto, Vehiculo, Categoria
+from .models import Producto, Vehiculo, Categoria,PerfilUsuario
 from .forms import VehiculoForm, ProductoForm
+from django.contrib.auth.models import User
+from django.contrib.auth import login, logout, authenticate
+from .forms import RegistrarUsuarioForm, PerfilUsuarioForm, IniciarSesionForm
 
 # Create your views here.
 
@@ -11,9 +14,6 @@ def home(request):
 
 def nosotros(request):
     return render(request, "core/nosotros.html")
-
-def ingreso(request):
-    return render(request, "core/ingreso.html")
 
 def carritoCompra(request):
     return render(request, "core/carritoCompra.html")
@@ -126,21 +126,83 @@ def producto(request, action, id):
     return render(request, "core/producto.html", data)
 
 def poblar_bd(request):
-    Vehiculo.objects.all().delete()
-    Vehiculo.objects.create(patente="ALAN67", marca='Volvo', modelo="Volvo Station Wagon", imagen="images/volvosw.jpg", categoria=Categoria.objects.get(idCategoria=2))
-    Vehiculo.objects.create(patente="BILL88", marca='Saleen', modelo="S7", imagen="images/saleen.jpg", categoria=Categoria.objects.get(idCategoria=2))
-    Vehiculo.objects.create(patente="ELVI54", marca='Shelby', modelo="Cobra de 1967", imagen="images/cobra.jpg", categoria=Categoria.objects.get(idCategoria=2))
-    Vehiculo.objects.create(patente="FEDE84", marca='Mercedes-Benz', modelo="Pagoda de 1972", imagen="images/pagoda.jpg", categoria=Categoria.objects.get(idCategoria=2))
-    Vehiculo.objects.create(patente="JEFF46", marca='Ford', modelo="Wolf WR1 Ford Race Car", imagen="images/wolf.jpg", categoria=Categoria.objects.get(idCategoria=2))
-    Vehiculo.objects.create(patente="JOHN80", marca='Ford', modelo="Flathead Roadster de 1932", imagen="images/flathead.jpg", categoria=Categoria.objects.get(idCategoria=2))
-    Vehiculo.objects.create(patente="PAUL62", marca='Rolls-Royce', modelo="Phantom", imagen="images/phantom.jpg", categoria=Categoria.objects.get(idCategoria=2))
-    Vehiculo.objects.create(patente="SCAR47", marca='Mustang', modelo="Mustang de 1970", imagen="images/mustang.jpg", categoria=Categoria.objects.get(idCategoria=2))
-    Vehiculo.objects.create(patente="TIRO98", marca='Mercedes-Benz', modelo="Iron Bike de 1998", imagen="images/motoiron.jpg", categoria=Categoria.objects.get(idCategoria=3))
-    Vehiculo.objects.create(patente="UVAM20", marca='Silver Plus', modelo="Silver de 2000", imagen="images/silver.jpg", categoria=Categoria.objects.get(idCategoria=3))
-    return redirect(vehiculo, action='ins', id = '-1')
+   Vehiculo.objects.all().delete()
+   Vehiculo.objects.create(patente="ALAN67", marca='Volvo', modelo="Volvo Station Wagon", imagen="images/volvosw.jpg", categoria=Categoria.objects.get(idCategoria=2))
+   Vehiculo.objects.create(patente="BILL88", marca='Saleen', modelo="S7", imagen="images/saleen.jpg", categoria=Categoria.objects.get(idCategoria=2))
+   Vehiculo.objects.create(patente="ELVI54", marca='Shelby', modelo="Cobra de 1967", imagen="images/cobra.jpg", categoria=Categoria.objects.get(idCategoria=2))
+   Vehiculo.objects.create(patente="FEDE84", marca='Mercedes-Benz', modelo="Pagoda de 1972", imagen="images/pagoda.jpg", categoria=Categoria.objects.get(idCategoria=2))
+   Vehiculo.objects.create(patente="JEFF46", marca='Ford', modelo="Wolf WR1 Ford Race Car", imagen="images/wolf.jpg", categoria=Categoria.objects.get(idCategoria=2))
+   Vehiculo.objects.create(patente="JOHN80", marca='Ford', modelo="Flathead Roadster de 1932", imagen="images/flathead.jpg", categoria=Categoria.objects.get(idCategoria=2))
+   Vehiculo.objects.create(patente="PAUL62", marca='Rolls-Royce', modelo="Phantom", imagen="images/phantom.jpg", categoria=Categoria.objects.get(idCategoria=2))
+   Vehiculo.objects.create(patente="SCAR47", marca='Mustang', modelo="Mustang de 1970", imagen="images/mustang.jpg", categoria=Categoria.objects.get(idCategoria=2))
+   Vehiculo.objects.create(patente="TIRO98", marca='Mercedes-Benz', modelo="Iron Bike de 1998", imagen="images/motoiron.jpg", categoria=Categoria.objects.get(idCategoria=3))
+   Vehiculo.objects.create(patente="UVAM20", marca='Silver Plus', modelo="Silver de 2000", imagen="images/silver.jpg", categoria=Categoria.objects.get(idCategoria=3))
+   return redirect(vehiculo, action='ins', id = '-1')
 
 def poblar_bd_producto(request):
     Producto.objects.all().delete()
     Producto.objects.create(idProducto="0001",nombre='Bandanas Azul-Negro-Rojo', precio='$7.990', descripcion='Bandanas con diseño exclusivo en distintos colores' , imagen="images/bandana-1.jpg", categoria=Categoria.objects.get(idCategoria=4))
     Producto.objects.create(idProducto="0002",nombre='Cama azul', precio='$7.990', descripcion='Cama azul felpuda' , imagen="images/cama-2.jpg", categoria=Categoria.objects.get(idCategoria=4))
     return redirect(producto,action='ins',id = '-1')
+
+def ingreso(request):
+    data = {"mesg": "", "form": IniciarSesionForm()}
+
+    if request.method == "POST":
+        form = IniciarSesionForm(request.POST)
+        if form.is_valid:
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect(home)
+                else:
+                    data["mesg"] = "¡La cuenta o la password no son correctos!"
+            else:
+                data["mesg"] = "¡La cuenta o la password no son correctos!"
+    return render(request, "core/ingreso.html", data)
+
+def cerrar_sesion(request):
+    logout(request)
+    return redirect(home)
+
+def registro(request):
+    if request.method == 'POST':
+        form = RegistrarUsuarioForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            rut = request.POST.get("rut")
+            direccion = request.POST.get("direccion")
+            PerfilUsuario.objects.update_or_create(user=user, rut=rut, direccion=direccion)
+            return redirect(ingreso)
+    form = RegistrarUsuarioForm()
+    return render(request, "core/registro.html", context={'form': form})
+
+def perfil_usuario(request):
+    data = {"mesg": "", "form": PerfilUsuarioForm}
+
+    if request.method == 'POST':
+        form = PerfilUsuarioForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            user.first_name = request.POST.get("first_name")
+            user.last_name = request.POST.get("last_name")
+            user.email = request.POST.get("email")
+            user.save()
+            perfil = PerfilUsuario.objects.get(user=user)
+            perfil.rut = request.POST.get("rut")
+            perfil.direccion = request.POST.get("direccion")
+            perfil.save()
+            data["mesg"] = "¡Sus datos fueron actualizados correctamente!"
+
+    perfil = PerfilUsuario.objects.get(user=request.user)
+    form = PerfilUsuarioForm()
+    form.fields['first_name'].initial = request.user.first_name
+    form.fields['last_name'].initial = request.user.last_name
+    form.fields['email'].initial = request.user.email
+    form.fields['rut'].initial = perfil.rut
+    form.fields['direccion'].initial = perfil.direccion
+    data["form"] = form
+    return render(request, "core/misDatos.html", data)

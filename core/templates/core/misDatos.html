@@ -5,89 +5,18 @@
 <script src="core/js/validacion-formularios.js"></script>  
 {% endblock %}
 {% block content %}  
-    <div class="container">
-        <div class="row borde-bootstrap-row">
-            <h4>Mis Datos</h4>
-        </div>
-        <br>
-        <form class="borde-bootstrap-row" action="registro.php" method="post" name="registro" id="registro">
-            <div class="row borde-bootstrap-row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="rut">RUT</label>
-                        <input class="form-control" type="text" name="rut" id="rut" 
-                            aria-describedby="rut-help" placeholder="Ingresa tu RUT">
-                    </div>
-                    <div class="form-group">
-                        <label for="nombres">Nombres</label>
-                        <input class="form-control" type="text" name="nombres" id="nombres" 
-                            placeholder="Escribe aquí tus nombres">
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidos">Apellidos</label>
-                        <input class="form-control" type="text" name="apellidos" id="apellidos" 
-                            placeholder="Escribe aquí tus apellidos">
-                    </div>
-                    <div class="form-group">
-                        <label for="correo">Correo</label>
-                        <input class="form-control" type="email" name="correo" id="correo" 
-                            aria-describedby="correo-help" placeholder="Escribe aquí tu correo">
-                        <small id="correo-help" class="form-text text-muted">
-                            
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <label for="direccion">Dirección</label>
-                        <textarea class="form-control" name="direccion" id="direccion" cols="60" rows="5" 
-                            aria-describedby="direccion-help"placeholder="Escribe aquí tu dirección"></textarea>
-                        <small id="direccion-help" class="form-text text-muted">
-                            
-                        </small>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="consubscripcion" name="consubscripcion" 
-                            aria-describedby="consubscripcion-help">
-                        <label class="form-check-label" for="consubscripcion">Con subscripción</label>
-                        <small id="consubscripcion-help" class="form-text text-muted">
-                            Deseo subscribirme con un aporte de $3.000 mensuales
-                            y obtener un 5% de descuento en mis copmpras
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <br>
-                        <label for="password">Contraseña</label>
-                        <input class="form-control" type="password" name="password" id="password" 
-                            aria-describedby="password-help" placeholder="Escribe aquí tu contraseña">
-                        <small id="password-help" class="form-text text-muted">
-                            La contraseña debe tener un mínimo de 10 caracteres y 
-                            debe contener al menos una mayúscula y un número
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <label for="password2">Repetir contraseña</label>
-                        <input class="form-control" type="password" name="password2" id="password2" 
-                            placeholder="Repite aquí tu contraseña">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <img src="img/foto-perfil.jpg"fotoperfil id="fotoperfil">
-                        <br><br>
-                        <input class="form-control-file" type="file" name="buscarfoto" id="buscarfoto">
-                    </div>
-                </div>
+<div class="container text-center">
+    <h1>Actualizar Perfil de Usuario</h1>
+    <div class="content container text-center">
+        <form method="POST" class="col-sm-12 col-md-6">
+            {% csrf_token %} {{ form.as_p }}
+            <div class="btn_guardar">
+                <button class="btn btn-primary" type="submit">Actualizar datos de perfil</button>
             </div>
-            <div class="row borde-bootstrap-row">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                &nbsp;&nbsp;&nbsp;
-                <button type="reset" class="btn btn-secondary">Limpiar</button>
-            </div>
+            {% if mesg %}
+            <div id="form_message" class="alert alert-danger" role="alert">{{ mesg }}</div>
+            {% endif %}
         </form>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+</div>
     {% endblock content %}
