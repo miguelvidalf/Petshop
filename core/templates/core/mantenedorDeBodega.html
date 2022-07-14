@@ -1,155 +1,63 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block stylesheet %}
-<link href="{% static 'core/css/style.css'%}" rel="stylesheet">
+<link href="{% static 'core/css/forms.css'%}" rel="stylesheet">
 {% endblock %}
 {% block content %}
-<div class="container-fluid">
+<div class="container">
     <h1>Mantenedor de Bodega</h1>
-</div>
-<div class="container-fluid">
-    <form class="borde-bootstrap-row" action="registro.php" method="post" name="item" id="item-bodega">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="ID">ID</label>
-                <input class="form-control" type="text" name="id" id="id" 
-                aria-describedby="id-help" placeholder="Ingresa n° ID">
-            </div>
-            <div class="form-group">
-                    <label for="categoria">Categoría</label>
-                        <select id="categoria" name="categoria">
-                            <option value="Perros">Perros</option>
-                            <option value="Gatos">Gatos</option>
-                            <option value="Pajaros">Pajaros</option>
-                            <option value="Otros">Otros</option>
-                        </select>
-            </div>
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                    <select id="nombreBodega" name="nombre">
-                        <option value="Bandanas">Bandanas Azul-Rojo-Negro</option>
-                        <option value="Cama">Cama felpuda color azul</option>
-                        <option value="Lentes">Lentes de sol para gato</option>
-                        <option value="Cuerda">Cuerda color pastel</option>
-                        <option value="Pelota">Pelota plástico con cascabel</option>
-                        <option value="Peluca">Peluca para perro</option>
-                    </select>
+    {% if form %}
+    <form method="POST" action="" enctype="multipart/form-data" id="formulario">
+        <div class="form-group">
+            {% csrf_token %} {{ form.as_ul }}
+            {% if action == 'upd'  %}
+                <script>
+                    $(document).ready(function() {
+                        $('#id_idbodega').attr('readonly', true);
+                    });
+                </script>
+            {% endif %}
+
         </div>
-            <div class="form-group">
-                <label for="cantidad">Estado</label>
-                <input class="form-control" type="text" name="nombre" id="cantidad" placeholder="">
-            </div>
-            <div class="row borde-bootstrap-row">
-                <button type="submit" class="btn btn-primary">Agregar</button>
-                &nbsp;&nbsp;&nbsp;
-                <button type="submit" class="btn btn-primary">Nuevo</button>
-                &nbsp;&nbsp;&nbsp;
-                <button type="reset" class="btn btn-secondary">Limpiar</button>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="form-group">
-                <img src="img/bandana-1.jpg" alt="" name="bandana1" id="bandana1">
-                <br><br>
-                <input class="form-control-file" type="file" name="buscarfoto" id="buscarfoto">
-            </div>
-        </div>
-    
+        <input type="submit" class="btn btn-primary btnwidth" id="id_guardar" value="Guardar">
+        <a class="btn btn-success btnwidth" href="{% url 'mantenedorDeBodega' 'ins' -1 %}">Nuevo</a>
+        {% if id != '-1' %}
+        <a class="btn btn-danger btnwidth" href="{% url 'mantenedorDeBodega' 'del' id %}">Eliminar</a>
+        {% endif %}
+        {% if mesg %}
+        <div id="form_message" class="alert alert-danger" role="alert">{{ mesg }}</div>
+        {% endif %}
     </form>
+    {% endif %}
+    {% if list %}
+    <br>
+    <table id="tabla_datos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Categoria</th>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th class="titulo_boton">Editar</th>
+                <th class="titulo_boton">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pr in list %}
+            <tr>
+                <td>{{ pr.idbodega }}</td>
+                <td>{{ pr.categoria }}</td>
+                <td>{{ pr.producto.nombre }}</td>
+                <td>{{ pr.estado }}</td>
+                <td><a href="{% url 'mantenedorDeBodega' 'upd' pr.idbodega %}" 
+                    class="btn btn-primary btn-sm boton_chico">Editar</a></td>
+                <td><a href="{% url 'mantenedorDeBodega' 'del' pr.idbodega %}" 
+                    class="btn btn-danger btn-sm boton_chico">Eliminar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
+    {% endif %}
 </div>
-<br>
-<div class="container-fluid">
-        <table>
-            <tr>
-                <th style="width: 30px;"></th>
-                <th style="width: 200px;">ID</th>
-                <th style="width: 200px;">Categoría</th>
-                <th style="width: 800px;">Nombre</th>
-                <th style="width: 200px;">Estado</th>
-                <th style="width: 200px;">Opciones</th>
-            </tr>
-            <tr>
-                <td>></td>
-                <td>27</td>
-                <td>Perros</td>
-                <td>Bandanas</td>
-                <td>Vendido</td>
-                <td><a href="#">Eliminar</a></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>28</td>
-                <td>Perros</td>
-                <td>Peluca parra Perros</td>
-                <td>Vendido</td>
-                <td><a href="#">Eliminar</a></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>29</td>
-                <td>Perros</td>
-                <td>Peluca para Perros</td>
-                <td>En bodega</td>
-                <td><a href="#">Eliminar</a></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>30</td>
-                <td>Gatos</td>
-                <td>Lentes para gatos</td>
-                <td>Vendido</td>
-                <td><a href="#">Eliminar</a></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>31</td>
-                <td>Perros</td>
-                <td>Cama felpuda</td>
-                <td>En bodega</td>
-                <td><a href="#">Eliminar</a></td>
-            </tr>
-            <tr>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-            </tr>
-            <tr>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-            </tr>
-            <tr>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-            </tr>
-            <tr>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-            </tr>
-            <tr>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-                <td>&nbsp</td>
-            </tr>
-        </table>
-</div>
-
 {% endblock content %}
