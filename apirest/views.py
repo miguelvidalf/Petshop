@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
 
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
@@ -21,6 +21,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 from .serializers import *
 from core.models import Producto, PerfilUsuario
+
+
 
 # Create your views here.
 
@@ -103,3 +105,25 @@ class Login(ObtainAuthToken):
         else:
             print("hola")
             return Response({'error': 'Nombre de usuario o contraseña incorrectas'}, status= status.HTTP_400_BAD_REQUEST)
+
+
+class Ususcriptor(generics.UpdateAPIView):
+    serializer_class = USuscriptorSerializer
+    """ def get_queryset(self, pk= None):
+        return self.get_serializer().Meta.model.objects.get(numeroGD = pk) """
+    def get_object(self,id):
+        return self.get_serializer().Meta.model.objects.get(user = id)
+    def put(self,request, id):
+        user = self.get_object(id)
+        if user:
+            user_serializer = self.serializer_class(user, data= request.data)
+            if user_serializer.is_valid():
+                user_serializer.save()
+                return Response(user_serializer.data, status= status.HTTP_200_OK)
+            return Response(user_serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+        return Response(user_serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+
+class Vsuscriptro(generics.ListAPIView):
+    serializer_class = USuscriptorSerializer
+    def get_queryset(self):
+        return self.get_serializer().Meta.model.objects.filter(es_suscriptor =True)
