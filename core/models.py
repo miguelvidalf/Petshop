@@ -48,9 +48,15 @@ class PerfilUsuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     rut = models.CharField(max_length=80, blank=True, null=True, verbose_name="Rut")
     direccion = models.CharField(max_length=80, blank=True, null=True, verbose_name="Dirección")
-    es_suscriptor = models.BooleanField(default=False)
-
 
     def __str__(self):
         return f"{self.user.username} - {self.user.first_name} {self.user.last_name} ({self.user.email})"
 
+class PrBodega(models.Model):
+    idbodega = models.CharField(max_length=6, primary_key=True, verbose_name="idbodega")
+    categoria = models.CharField(max_length=20, blank=False, null=False, verbose_name="categoria")
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    estado = models.CharField(max_length=30, blank=False, null=False, verbose_name="estado")
+    
+    def __str__(self):
+        return self.idbodega

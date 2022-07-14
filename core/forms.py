@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, fields, Form
-from .models import Vehiculo, Producto
+from .models import Vehiculo, Producto, PrBodega
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -37,3 +37,8 @@ class PerfilUsuarioForm(Form):
 
     class Meta:
         fields = '__all__'
+
+class PrBodegaForm(ModelForm):
+    class Meta:
+        model = PrBodega
+        fields = ['idbodega', 'categoria', 'producto', 'estado']

@@ -10,9 +10,6 @@ urlpatterns = [
     path('producto_read/<id>/',producto_read, name="producto_read"),
     path('producto_delete/<id>/',producto_delete, name="producto_delete"),
     path('producto_read_all/',producto_read_all, name="producto_read_all"),
-    path('USuscriptor/<id>/',Ususcriptor.as_view(), name="USuscriptor"),
-    path('Vsuscriptor/',Vsuscriptro.as_view(), name="VSuscriptro"),
-
    
 
 ]

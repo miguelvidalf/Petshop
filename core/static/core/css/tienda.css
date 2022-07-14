@@ -1,3 +1,4 @@
+
 #tienda_ficha:link {
     color: rgb(59, 56, 56);
     padding: 2px 2px;
@@ -36,4 +37,12 @@
 .tienda_link_home {
     text-align: center;
     margin-top: 20px;
+}
+
+#btnropita {
+    width: 50%;
+    background-color: #7ed581;
+    border: 2px solid #377639;
+    border-radius: 12px;
+
 }
