@@ -16,7 +16,8 @@
         <script>
             $(document).ready(function(){
                 set_nav_li("#inicio", "{% url 'home' %}");
-                set_nav_li("#tienda", "{% url 'indexPetshop' %}",);
+                set_nav_li("#tienda", "{% url 'home' %}",);
+                set_nav_li("#us", "{% url 'nosotros' %}",);
                 set_nav_li("#admsis", "{% url 'menuAdministrador' %}");
                 set_nav_li("#manpro", "{% url 'producto' 'ins' '-1' %}");
                 set_nav_li("#regist", "{% url 'registro' %}");
@@ -36,13 +37,13 @@
             <div id="nav" >
                 <ul class="list-inline">
                     <!-- inicio menú para usuarios anónimos -->
-                    <li class="nav-item" id="inicio"  class="nav-link" >Inicio</li>    
-                    <li class="nav-item" id="tienda" class="nav-link" >Tienda</li>
+                    <li class="nav-item" id="tienda" class="nav-link" >Petshop</li>
+                    <li class="nav-item" id="inicio"  class="nav-link" >Inicio</li>
+                    <li class="nav-item" id="us"  class="nav-link" >Nosotros</li>    
                     <!-- fin menú para usuarios anónimos -->
 
                     {% if user.is_authenticated and user.is_staff %}
                         <li class="nav-item" id="admsis" class="nav-link">Administrar sistema</li>
-                        <li class="nav-item" id="manpro" class="nav-link" >Mantener productos</li>
                     {% endif %}
                     
                     {% if not user.is_authenticated and not user.is_staff %}
@@ -56,7 +57,6 @@
                     {% if user.is_authenticated %}
                         <!-- <li id="chpass">Cambiar contraseña</li> -->
                         <li class="nav-item" id="cerses" class="nav-link" >Cerrar sesión</li>
-                        <li class="nav-item" id="perfil" class="nav-link" >{{ user.get_full_name }}</li>
                     {% endif %}
                     
                 </ul>

@@ -41,14 +41,3 @@ th {
     border-bottom-width: 0px;
 }
 
-#us {
-    background-color: #88908e;
-    color: antiquewhite;
-    text-justify: distribute;
-    width: 1000px;
-    text-align: center;
-    padding: 20px;
-    margin: 20px;
-    border: 20px outset #155041;
-
-}

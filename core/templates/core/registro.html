@@ -1,11 +1,11 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block stylesheet %}
-<link href="{% static 'core/css/style.css'%}" rel="stylesheet">
-<script src="core/js/validacion-formularios.js"></script>
+<link href="{% static 'core/css/forms.css'%}" rel="stylesheet">
 {% endblock %}
 {% block content %}
-<div class="container text-center">
+<script src="core/js/validacion-formularios.js"></script>
+<div class="container text-center"  id="uscuadro">
     <h1>Registrar Usuario</h1>
     <div class="content container text-center">
         <form method="POST" class="col-sm-12 col-md-6">
