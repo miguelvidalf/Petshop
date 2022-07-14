@@ -1,10 +1,10 @@
 
 from django.shortcuts import redirect, render
-from .models import Producto, Vehiculo, Categoria,PerfilUsuario, PrBodega
+from .models import Producto, Vehiculo, Categoria,PerfilUsuario
 from .forms import VehiculoForm, ProductoForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from .forms import RegistrarUsuarioForm, PerfilUsuarioForm, IniciarSesionForm, PrBodegaForm
+from .forms import RegistrarUsuarioForm, PerfilUsuarioForm, IniciarSesionForm
 
 # Create your views here.
 
@@ -21,6 +21,8 @@ def carritoCompra(request):
 def api_ropa(request):
     return render(request, "core/api_ropa.html")
 
+def misDatos(request):
+    return render(request, "core/misDatos.html")
 def misCompras(request):
     return render(request, "core/misCompras.html")
 
@@ -39,6 +41,9 @@ def historialDeVentas(request):
 
 def detalleDeFacturas(request):
     return render(request, "core/detalleDeFacturas.html")
+
+def mantenedorDeBodega(request):
+    return render(request, "core/mantenedorDeBodega.html")
 
 def mantenedorUsuario(request):
     return render(request, "core/mantenedorUsuario.html")
@@ -137,7 +142,6 @@ def poblar_bd(request):
    Vehiculo.objects.create(patente="UVAM20", marca='Silver Plus', modelo="Silver de 2000", imagen="images/silver.jpg", categoria=Categoria.objects.get(idCategoria=3))
    return redirect(vehiculo, action='ins', id = '-1')
 
-#VIEW POBLAR BASE DE DATOS
 def poblar_bd_producto(request):
     Producto.objects.all().delete()
     Producto.objects.create(idProducto="0001",nombre='Bandanas Azul-Negro-Rojo', precio='$7.990', descripcion='Bandanas con diseño exclusivo en distintos colores' , imagen="images/bandana-1.jpg", categoria=Categoria.objects.get(idCategoria=4))
@@ -179,7 +183,7 @@ def registro(request):
     form = RegistrarUsuarioForm()
     return render(request, "core/registro.html", context={'form': form})
 
-def misDatos(request):
+def perfil_usuario(request):
     data = {"mesg": "", "form": PerfilUsuarioForm}
 
     if request.method == 'POST':
@@ -205,39 +209,3 @@ def misDatos(request):
     form.fields['direccion'].initial = perfil.direccion
     data["form"] = form
     return render(request, "core/misDatos.html", data)
-
-def mantenedorDeBodega(request,action,id):
-    if not (request.user.is_authenticated and request.user.is_staff):
-        return redirect(home)
-
-    data = {"mesg": "", "form": PrBodegaForm, "action": action, "id": id, "formsesion": IniciarSesionForm}
-
-    if action == 'ins':
-        if request.method == "POST":
-            form = PrBodegaForm(request.POST, request.FILES)
-            if form.is_valid:
-                try:
-                    form.save()
-                    data["mesg"] = "¡El producto se  agregó correctamente!"
-                except:
-                    data["mesg"] = "¡No se pueden generar dos productos con el mismo codigo!"
-
-    elif action == 'upd':
-        objeto = PrBodega.objects.get(idbodega=id)
-        if request.method == "POST":
-            form = PrBodegaForm(data=request.POST, files=request.FILES, instance=objeto)
-            if form.is_valid:
-                form.save()
-                data["mesg"] = "¡el producto fue actualiado correctamente!"
-        data["form"] = PrBodegaForm(instance=objeto)
-
-    elif action == 'del':
-        try:
-            PrBodega.objects.get(idbodega=id).delete()
-            data["mesg"] = "¡el producto fue eliminado correctamente!"
-            return redirect(mantenedorDeBodega, action='ins', id = '-1')
-        except:
-            data["mesg"] = "¡eL PRODUCTO ya estaba eliminado!"
-
-    data["list"] = PrBodega.objects.all().order_by('idbodega')
-    return render(request, "core/mantenedorDeBodega.html", data)
